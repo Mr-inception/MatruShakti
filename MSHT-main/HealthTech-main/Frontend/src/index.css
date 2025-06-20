@@ -1,0 +1,95 @@
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 24 100% 98%;
+    --foreground: 24 25% 20%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 24 25% 20%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 25% 20%;
+
+    --primary: 24 95% 53%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 24 40% 96.1%;
+    --secondary-foreground: 24 25% 20%;
+
+    --muted: 24 40% 96.1%;
+    --muted-foreground: 24 25% 45%;
+
+    --accent: 0 100% 96%;
+    --accent-foreground: 24 25% 20%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 24 30% 90%;
+    --input: 24 30% 90%;
+    --ring: 24 95% 53%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 24 25% 10%;
+    --foreground: 24 10% 90%;
+
+    --card: 24 25% 12%;
+    --card-foreground: 24 10% 90%;
+
+    --popover: 24 25% 12%;
+    --popover-foreground: 24 10% 90%;
+
+    --primary: 24 70% 60%;
+    --primary-foreground: 24 10% 98%;
+
+    --secondary: 24 20% 20%;
+    --secondary-foreground: 24 10% 90%;
+
+    --muted: 24 20% 20%;
+    --muted-foreground: 24 10% 70%;
+
+    --accent: 0 70% 30%;
+    --accent-foreground: 24 10% 90%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 24 10% 90%;
+
+    --border: 24 20% 30%;
+    --input: 24 20% 30%;
+    --ring: 24 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.matru-gradient {
+  @apply bg-gradient-to-r from-matru-primary to-matru-secondary;
+}
+
+.matru-card {
+  @apply rounded-2xl bg-white shadow-md hover:shadow-lg transition-shadow duration-300;
+}
+
+.matru-button {
+  @apply px-6 py-3 font-medium rounded-full transition-all duration-300 transform hover:scale-105;
+}
+
+.matru-input {
+  @apply rounded-lg border border-gray-300 focus:border-matru-primary focus:ring-1 focus:ring-matru-primary;
+}
