@@ -19,9 +19,15 @@ const Dashboard = () => {
               <h1 className="text-2xl font-bold">Pregnancy Dashboard</h1>
               <p className="text-gray-600">Track your journey and access resources</p>
             </div>
+<<<<<<< HEAD
             <div className="mt-4 md:mt-0">
               <Button className="bg-matru-primary hover:bg-matru-secondary">Update Profile</Button>
             </div>
+=======
+            {/* <div className="mt-4 md:mt-0">
+              <Button className="bg-matru-primary hover:bg-matru-secondary">Update Profile</Button>
+            </div> */}
+>>>>>>> c6bea3b (Initial commit)
           </div>
           
           {/* Pregnancy Progress Card */}

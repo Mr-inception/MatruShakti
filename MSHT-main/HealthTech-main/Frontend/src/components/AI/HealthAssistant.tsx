@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> c6bea3b (Initial commit)
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +18,7 @@ const HealthAssistant = () => {
   ]);
   const [isLoading, setIsLoading] = useState(false);
 
+<<<<<<< HEAD
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -52,6 +56,45 @@ const HealthAssistant = () => {
 
   return (
     <div className="flex flex-col h-full max-h-[700px]">
+=======
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!message.trim()) return;
+
+    setChatHistory([...chatHistory, { role: 'user', content: message }]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAcJZ676Uz3w5HPsFLsIOy99sA0QGl_-L8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                { text: "You are a helpful maternal health assistant. Answer questions about pregnancy, maternal health, and government schemes in India." },
+                ...chatHistory.map(chat => ({ text: chat.content })),
+                { text: message }
+              ]
+            }
+          ]
+        })
+      });
+      const data = await response.json();
+      const aiMessage = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't find an answer.";
+      setChatHistory(prev => [...prev, { role: 'assistant', content: aiMessage }]);
+    } catch (error) {
+      setChatHistory(prev => [...prev, { role: 'assistant', content: "Sorry, there was an error getting a response." }]);
+    }
+    setIsLoading(false);
+    setMessage('');
+  };
+
+  return (
+    <div className="flex flex-col h-full max-h-[600px]">
+>>>>>>> c6bea3b (Initial commit)
       <div className="bg-matru-primary/10 p-4 rounded-t-lg">
         <div className="flex items-center space-x-2">
           <Heart className="h-5 w-5 text-matru-primary animate-pulse" />

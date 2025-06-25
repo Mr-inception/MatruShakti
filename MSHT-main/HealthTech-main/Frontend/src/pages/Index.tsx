@@ -6,7 +6,17 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Shield, Baby } from 'lucide-react';
 import { Link } from 'react-router-dom';
+<<<<<<< HEAD
 const Index = () => {
+=======
+import { useEffect, useState } from 'react';
+const Index = () => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('matruUser');
+    if (stored) setUser(JSON.parse(stored));
+  }, []);
+>>>>>>> c6bea3b (Initial commit)
   return <div className="min-h-screen flex flex-col">
       <Navbar />
       

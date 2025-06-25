@@ -49,6 +49,11 @@ const registerSchema = z.object({
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
+<<<<<<< HEAD
+=======
+const BACKEND_URL = 'http://localhost:4000';
+
+>>>>>>> c6bea3b (Initial commit)
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -72,19 +77,47 @@ const Register = () => {
     setIsSubmitting(true);
     
     try {
+<<<<<<< HEAD
       console.log("Registration data:", data);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
+=======
+      // Send registration data to backend
+      const res = await fetch(`${BACKEND_URL}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}));
+        let errorMsg = 'Something went wrong. Please try again.';
+        if (errData?.error?.code === 11000) {
+          errorMsg = 'Email already registered.';
+        } else if (errData?.message) {
+          errorMsg = errData.message;
+        }
+        throw new Error(errorMsg);
+      }
+>>>>>>> c6bea3b (Initial commit)
       toast({
         title: "Registration successful!",
         description: "Welcome to MatruShakti. Please login to continue.",
       });
+<<<<<<< HEAD
       
+=======
+      // Store user info in localStorage
+      localStorage.setItem('matruUser', JSON.stringify({ email: data.email, fullName: data.fullName }));
+>>>>>>> c6bea3b (Initial commit)
       navigate("/login");
     } catch (error) {
       toast({
         title: "Registration failed",
+<<<<<<< HEAD
         description: "Something went wrong. Please try again.",
+=======
+        description: error.message || "Something went wrong. Please try again.",
+>>>>>>> c6bea3b (Initial commit)
         variant: "destructive",
       });
     } finally {

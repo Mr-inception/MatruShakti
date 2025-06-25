@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 
 import { useState } from 'react';
+=======
+import { useEffect, useState } from 'react';
+>>>>>>> c6bea3b (Initial commit)
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -7,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { MessageSquare, Heart, User, Calendar } from 'lucide-react';
 
+<<<<<<< HEAD
 // Sample forum posts
 const initialPosts = [
   {
@@ -78,17 +83,25 @@ const initialPosts = [
     isExpert: true,
   },
 ];
+=======
+const BACKEND_URL = 'http://localhost:4000';
+>>>>>>> c6bea3b (Initial commit)
 
 const CommunityForum = () => {
   const [activeTab, setActiveTab] = useState('discussions');
   const [searchTerm, setSearchTerm] = useState('');
+<<<<<<< HEAD
   const [posts, setPosts] = useState(initialPosts);
+=======
+  const [posts, setPosts] = useState<any[]>([]);
+>>>>>>> c6bea3b (Initial commit)
   const [newPostVisible, setNewPostVisible] = useState(false);
   const [newPost, setNewPost] = useState({
     title: '',
     content: '',
   });
 
+<<<<<<< HEAD
   const handleLikePost = (postId: number) => {
     setPosts(
       posts.map((post) =>
@@ -98,22 +111,60 @@ const CommunityForum = () => {
   };
 
   const handleNewPostSubmit = (e: React.FormEvent) => {
+=======
+  // Fetch posts from backend on mount
+  useEffect(() => {
+    fetch(`${BACKEND_URL}/posts`)
+      .then(res => res.json())
+      .then(data => setPosts(data));
+  }, []);
+
+  // Like post (local only)
+  const handleLikePost = (postId: string) => {
+    setPosts(
+      posts.map((post) =>
+        post._id === postId ? { ...post, likes: post.likes + 1 } : post
+      )
+    );
+    // Optionally, send a PATCH/PUT to backend to persist likes
+  };
+
+  // Submit new post to backend
+  const handleNewPostSubmit = async (e: React.FormEvent) => {
+>>>>>>> c6bea3b (Initial commit)
     e.preventDefault();
     if (!newPost.title.trim() || !newPost.content.trim()) return;
 
     const post = {
+<<<<<<< HEAD
       id: posts.length + 1,
       category: activeTab,
       title: newPost.title,
       author: 'You',
       date: 'Just now',
+=======
+      category: activeTab,
+      title: newPost.title,
+      author: 'You',
+      date: new Date().toLocaleDateString(),
+>>>>>>> c6bea3b (Initial commit)
       content: newPost.content,
       likes: 0,
       replies: 0,
       verified: true,
     };
 
+<<<<<<< HEAD
     setPosts([post, ...posts]);
+=======
+    const res = await fetch(`${BACKEND_URL}/posts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(post),
+    });
+    const savedPost = await res.json();
+    setPosts([savedPost, ...posts]);
+>>>>>>> c6bea3b (Initial commit)
     setNewPost({ title: '', content: '' });
     setNewPostVisible(false);
   };
@@ -228,7 +279,11 @@ const CommunityForum = () => {
 };
 
 // Helper function to render posts
+<<<<<<< HEAD
 function renderPosts(posts: any[], handleLikePost: (id: number) => void) {
+=======
+function renderPosts(posts: any[], handleLikePost: (id: string) => void) {
+>>>>>>> c6bea3b (Initial commit)
   if (posts.length === 0) {
     return (
       <div className="text-center py-12">
@@ -240,7 +295,11 @@ function renderPosts(posts: any[], handleLikePost: (id: number) => void) {
   }
 
   return posts.map((post) => (
+<<<<<<< HEAD
     <Card key={post.id} className="border-matru-primary/10 hover:border-matru-primary/30 transition-colors">
+=======
+    <Card key={post._id} className="border-matru-primary/10 hover:border-matru-primary/30 transition-colors">
+>>>>>>> c6bea3b (Initial commit)
       <CardHeader>
         <div className="flex justify-between items-start">
           <CardTitle className="text-lg">{post.title}</CardTitle>
@@ -269,7 +328,11 @@ function renderPosts(posts: any[], handleLikePost: (id: number) => void) {
       <CardFooter className="flex justify-between">
         <div className="flex space-x-4 text-sm text-gray-500">
           <button
+<<<<<<< HEAD
             onClick={() => handleLikePost(post.id)}
+=======
+            onClick={() => handleLikePost(post._id)}
+>>>>>>> c6bea3b (Initial commit)
             className="flex items-center space-x-1 hover:text-matru-primary transition-colors"
           >
             <Heart className="h-4 w-4" />

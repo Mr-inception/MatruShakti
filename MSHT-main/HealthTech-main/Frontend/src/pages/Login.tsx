@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> c6bea3b (Initial commit)
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { z } from 'zod';
@@ -51,7 +54,12 @@ const Login = () => {
         title: "Login successful!",
         description: "Welcome to MatruShakti.",
       });
+<<<<<<< HEAD
       
+=======
+      // Store user info in localStorage
+      localStorage.setItem('matruUser', JSON.stringify({ email: data.email }));
+>>>>>>> c6bea3b (Initial commit)
       // Redirect to dashboard after successful login
       navigate("/dashboard");
     } catch (error) {

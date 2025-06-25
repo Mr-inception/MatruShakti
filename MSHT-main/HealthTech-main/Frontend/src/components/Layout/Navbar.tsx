@@ -1,10 +1,24 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+=======
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Link, useNavigate } from 'react-router-dom';
+>>>>>>> c6bea3b (Initial commit)
 import { MessageSquare, Calendar, User } from 'lucide-react';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+<<<<<<< HEAD
+=======
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('matruUser');
+    if (stored) setUser(JSON.parse(stored));
+  }, []);
+>>>>>>> c6bea3b (Initial commit)
   return <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-4 py-3 bg-orange-200">
         <div className="flex items-center justify-between">
@@ -29,12 +43,31 @@ const Navbar = () => {
               <Link to="/health-assistant">Health Assistant</Link>
             </Button>
             <div className="flex items-center space-x-2 pl-2">
+<<<<<<< HEAD
               <Button variant="outline" asChild>
                 <Link to="/login">Login</Link>
               </Button>
               <Button asChild className="bg-matru-primary hover:bg-matru-secondary">
                 <Link to="/register">Register</Link>
               </Button>
+=======
+              {user ? (
+                <Link to="/profile">
+                  <div className="bg-matru-primary text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold cursor-pointer hover:opacity-80 transition">
+                    {(user.fullName ? user.fullName.charAt(0) : user.email.charAt(0)).toUpperCase()}
+                  </div>
+                </Link>
+              ) : (
+                <>
+                  <Button variant="outline" asChild>
+                    <Link to="/login">Login</Link>
+                  </Button>
+                  <Button asChild className="bg-matru-primary hover:bg-matru-secondary">
+                    <Link to="/register">Register</Link>
+                  </Button>
+                </>
+              )}
+>>>>>>> c6bea3b (Initial commit)
             </div>
           </div>
 
@@ -62,12 +95,31 @@ const Navbar = () => {
             <Button variant="ghost" className="w-full justify-start" asChild>
               <Link to="/health-assistant">Health Assistant</Link>
             </Button>
+<<<<<<< HEAD
             <Button variant="outline" className="w-full justify-start" asChild>
               <Link to="/login">Login</Link>
             </Button>
             <Button className="w-full bg-matru-primary hover:bg-matru-secondary" asChild>
               <Link to="/register">Register</Link>
             </Button>
+=======
+            {user ? (
+              <Link to="/profile">
+                <div className="bg-matru-primary text-white rounded-full w-10 h-10 flex items-center justify-center text-lg font-bold mx-2 cursor-pointer hover:opacity-80 transition">
+                  {(user.fullName ? user.fullName.charAt(0) : user.email.charAt(0)).toUpperCase()}
+                </div>
+              </Link>
+            ) : (
+              <>
+                <Button variant="outline" className="w-full justify-start" asChild>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button className="w-full bg-matru-primary hover:bg-matru-secondary" asChild>
+                  <Link to="/register">Register</Link>
+                </Button>
+              </>
+            )}
+>>>>>>> c6bea3b (Initial commit)
           </div>}
       </div>
     </nav>;
