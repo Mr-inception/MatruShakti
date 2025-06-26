@@ -1,4 +1,3 @@
-
 import Navbar from '@/components/Layout/Navbar';
 import Footer from '@/components/Layout/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -6,6 +5,8 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar, Heart, Baby, BriefcaseMedical, MessageSquare, CircleCheck } from 'lucide-react';
+
+const BACKEND_URL = 'http://localhost:4000';
 
 const Dashboard = () => {
   return (
@@ -19,15 +20,9 @@ const Dashboard = () => {
               <h1 className="text-2xl font-bold">Pregnancy Dashboard</h1>
               <p className="text-gray-600">Track your journey and access resources</p>
             </div>
-<<<<<<< HEAD
             <div className="mt-4 md:mt-0">
               <Button className="bg-matru-primary hover:bg-matru-secondary">Update Profile</Button>
             </div>
-=======
-            {/* <div className="mt-4 md:mt-0">
-              <Button className="bg-matru-primary hover:bg-matru-secondary">Update Profile</Button>
-            </div> */}
->>>>>>> c6bea3b (Initial commit)
           </div>
           
           {/* Pregnancy Progress Card */}
