@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> c6bea3b (Initial commit)
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,10 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
-<<<<<<< HEAD
-=======
 import Profile from "./pages/Profile";
->>>>>>> c6bea3b (Initial commit)
 
 const queryClient = new QueryClient();
 
@@ -39,10 +32,7 @@ const App = () => (
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-<<<<<<< HEAD
-=======
             <Route path="/profile" element={<Profile />} />
->>>>>>> c6bea3b (Initial commit)
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

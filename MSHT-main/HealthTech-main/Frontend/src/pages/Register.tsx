@@ -49,11 +49,8 @@ const registerSchema = z.object({
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
-<<<<<<< HEAD
-=======
 const BACKEND_URL = 'http://localhost:4000';
 
->>>>>>> c6bea3b (Initial commit)
 const Register = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -75,13 +72,7 @@ const Register = () => {
 
   const onSubmit = async (data: RegisterFormValues) => {
     setIsSubmitting(true);
-    
     try {
-<<<<<<< HEAD
-      console.log("Registration data:", data);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      
-=======
       // Send registration data to backend
       const res = await fetch(`${BACKEND_URL}/register`, {
         method: 'POST',
@@ -98,26 +89,17 @@ const Register = () => {
         }
         throw new Error(errorMsg);
       }
->>>>>>> c6bea3b (Initial commit)
       toast({
         title: "Registration successful!",
         description: "Welcome to MatruShakti. Please login to continue.",
       });
-<<<<<<< HEAD
-      
-=======
       // Store user info in localStorage
       localStorage.setItem('matruUser', JSON.stringify({ email: data.email, fullName: data.fullName }));
->>>>>>> c6bea3b (Initial commit)
       navigate("/login");
     } catch (error) {
       toast({
         title: "Registration failed",
-<<<<<<< HEAD
-        description: "Something went wrong. Please try again.",
-=======
         description: error.message || "Something went wrong. Please try again.",
->>>>>>> c6bea3b (Initial commit)
         variant: "destructive",
       });
     } finally {

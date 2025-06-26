@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> c6bea3b (Initial commit)
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { z } from 'zod';
@@ -42,24 +38,17 @@ const Login = () => {
 
   const onSubmit = async (data: LoginFormValues) => {
     setIsSubmitting(true);
-    
     try {
       // This is where we would typically make an API call to authenticate the user
       console.log("Login data:", data);
-      
       // Simulate API call with a timeout
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      
       toast({
         title: "Login successful!",
         description: "Welcome to MatruShakti.",
       });
-<<<<<<< HEAD
-      
-=======
       // Store user info in localStorage
       localStorage.setItem('matruUser', JSON.stringify({ email: data.email }));
->>>>>>> c6bea3b (Initial commit)
       // Redirect to dashboard after successful login
       navigate("/dashboard");
     } catch (error) {
@@ -76,7 +65,6 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      
       <main className="flex-grow flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md">
           <Card className="shadow-lg border-matru-primary/20">
@@ -86,7 +74,6 @@ const Login = () => {
                 Enter your credentials to access your account
               </CardDescription>
             </CardHeader>
-            
             <CardContent>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -106,7 +93,6 @@ const Login = () => {
                       </FormItem>
                     )}
                   />
-                  
                   <FormField
                     control={form.control}
                     name="password"
@@ -139,7 +125,6 @@ const Login = () => {
                       </FormItem>
                     )}
                   />
-                  
                   <div className="text-right">
                     <a 
                       href="/forgot-password" 
@@ -152,7 +137,6 @@ const Login = () => {
                       Forgot your password?
                     </a>
                   </div>
-                  
                   <Button 
                     type="submit" 
                     className="w-full bg-matru-primary hover:bg-matru-secondary" 
@@ -163,7 +147,6 @@ const Login = () => {
                 </form>
               </Form>
             </CardContent>
-            
             <CardFooter className="flex flex-col space-y-2">
               <div className="text-center text-sm">
                 Don't have an account?{" "}
@@ -175,7 +158,6 @@ const Login = () => {
           </Card>
         </div>
       </main>
-      
       <Footer />
     </div>
   );
