@@ -1,7 +1,14 @@
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useCallback } from 'react';
 
 const HeroSection = () => {
+  const handleScrollToSupport = useCallback(() => {
+    const el = document.getElementById('government-support-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
   return <div className="relative overflow-hidden bg-gradient-to-b from-white to-matru-blue/30 py-16 sm:py-24 bg-red-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 items-center">
@@ -22,6 +29,9 @@ const HeroSection = () => {
               </Button>
               <Button asChild variant="outline" size="lg" className="matru-button border-matru-primary text-matru-primary hover:bg-matru-primary/10">
                 <Link to="/about">Learn More</Link>
+              </Button>
+              <Button size="lg" variant="secondary" className="matru-button bg-matru-secondary/90 text-white hover:bg-matru-primary/90" onClick={handleScrollToSupport}>
+                Explore Government Support
               </Button>
             </div>
           </div>
