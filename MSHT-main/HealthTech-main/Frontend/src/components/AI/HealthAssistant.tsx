@@ -22,7 +22,7 @@ const HealthAssistant = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyAcJZ676Uz3w5HPsFLsIOy99sA0QGl_-L8', {
+      const response = await fetch('http://localhost:4000/api/health-assistant', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,7 +31,6 @@ const HealthAssistant = () => {
           contents: [
             {
               parts: [
-                { text: "You are a helpful maternal health assistant. Answer questions about pregnancy, maternal health, and government schemes in India." },
                 ...chatHistory.map(chat => ({ text: chat.content })),
                 { text: message }
               ]

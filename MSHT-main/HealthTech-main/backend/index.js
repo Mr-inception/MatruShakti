@@ -3,10 +3,15 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// Register health assistant routes
+const healthAssistantRoutes = require('./healthAssistant');
+app.use(healthAssistantRoutes);
 
 // Connect to MongoDB Atlas (replace <connection_string> with your URI)
 mongoose.connect('mongodb+srv://P1:06HF0x2SS0sibpQr@matru.iyx8vnc.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
