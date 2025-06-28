@@ -2,6 +2,16 @@ const express = require('express');
 const router = express.Router();
 require('dotenv').config();
 
+function convertToBulletPoints(text) {
+  // Try splitting long paragraph into separate lines and add dashes
+  return text
+    .split(/[.?!]\s+/) // split by sentence end
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .map(line => `- ${line}`)
+    .join('\n');
+}
+
 router.post('/api/health-assistant', async (req, res) => {
   console.log('Received request at /api/health-assistant');
   try {
@@ -14,15 +24,27 @@ router.post('/api/health-assistant', async (req, res) => {
           contents: [
             {
               parts: [
-                { text: "You are a helpful maternal health assistant. Answer questions about pregnancy, maternal health, and government schemes in India. Always answer in 3-5 short bullet points. Do not write any paragraphs. Start each point with a dash (-) or a number." },
+                {
+                  // text: `You are a helpful maternal health assistant.\nAnswer in 3 to 5 very short bullet points only.\nDo NOT write paragraphs.\nEach point must start with a dash (-).\nKeep each point under 20 words.`
+                },
                 ...(req.body.contents?.[0]?.parts?.slice(1) || [])
               ]
             }
-          ]
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 200,
+            topP: 1,
+            topK: 1
+          }
         }),
       }
     );
     const data = await response.json();
+    if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
+      data.candidates[0].content.parts[0].text =
+        convertToBulletPoints(data.candidates[0].content.parts[0].text);
+    }
     res.json(data);
   } catch (err) {
     console.error(err);

@@ -35,6 +35,9 @@ const Navbar = () => {
             <Button variant="ghost" asChild>
               <Link to="/health-assistant">Health Assistant</Link>
             </Button>
+            <Button variant="ghost" asChild>
+              <Link to="/mediclocker">MedicLocker</Link>
+            </Button>
             <div className="flex items-center space-x-2 pl-2">
               {user ? (
                 <Link to="/profile">
@@ -83,6 +86,9 @@ const Navbar = () => {
             </Button>
             <Button variant="ghost" className="w-full justify-start" asChild>
               <Link to="/health-assistant">Health Assistant</Link>
+            </Button>
+            <Button variant="ghost" className="w-full justify-start" asChild>
+              <Link to="/mediclocker">MedicLocker</Link>
             </Button>
             {user ? (
               <Link to="/profile">

@@ -13,6 +13,10 @@ app.use(express.json());
 const healthAssistantRoutes = require('./healthAssistant');
 app.use(healthAssistantRoutes);
 
+// Register MedicLocker routes
+const mediclockerRoutes = require('./mediclocker');
+app.use(mediclockerRoutes);
+
 // Connect to MongoDB Atlas (replace <connection_string> with your URI)
 mongoose.connect('mongodb+srv://P1:06HF0x2SS0sibpQr@matru.iyx8vnc.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
 
