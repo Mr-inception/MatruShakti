@@ -49,7 +49,7 @@ const registerSchema = z.object({
 
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
-const BACKEND_URL = 'http://localhost:4000';
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 const Register = () => {
   const navigate = useNavigate();

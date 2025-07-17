@@ -20,9 +20,10 @@ export default function MedicalRecords() {
 
   // Replace with real userId from auth
   const userId = '000000000000000000000000';
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/documents?userId=${userId}`)
+    fetch(`${API_URL}/api/documents?userId=${userId}`)
       .then(res => res.json())
       .then(setDocuments);
   }, []);
@@ -34,12 +35,12 @@ export default function MedicalRecords() {
     formData.append('document', file);
     formData.append('userId', userId);
     Object.entries(metadata).forEach(([k, v]) => formData.append(k, v));
-    await fetch('http://localhost:4000/api/documents/upload', {
+    await fetch(`${API_URL}/api/documents/upload`, {
       method: 'POST',
       body: formData,
     });
     // Refresh list
-    fetch(`http://localhost:4000/api/documents?userId=${userId}`)
+    fetch(`${API_URL}/api/documents?userId=${userId}`)
       .then(res => res.json())
       .then(setDocuments);
   };
@@ -69,7 +70,7 @@ export default function MedicalRecords() {
               <b>{doc.metadata.type}</b> - {doc.originalName} <br />
               <small>{doc.metadata.doctor}, {doc.metadata.hospital}, {new Date(doc.metadata.date).toLocaleDateString()}</small>
             </span>
-            <a href={`http://localhost:4000/api/documents/${doc._id}/download`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline ml-2">Download</a>
+            <a href={`${API_URL}/api/documents/${doc._id}/download`} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline ml-2">Download</a>
           </li>
         ))}
       </ul>
