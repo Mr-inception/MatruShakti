@@ -25,7 +25,7 @@ router.post('/api/health-assistant', async (req, res) => {
             {
               parts: [
                 {
-                  // text: `You are a helpful maternal health assistant.\nAnswer in 3 to 5 very short bullet points only.\nDo NOT write paragraphs.\nEach point must start with a dash (-).\nKeep each point under 20 words.`
+                  text: `You are a helpful maternal health assistant.\nAnswer in 3 to 5 very short bullet points only.\nDo NOT write paragraphs.\nEach point must start with a dash (-).\nKeep each point under 20 words.`
                 },
                 ...(req.body.contents?.[0]?.parts?.slice(1) || [])
               ]
@@ -41,6 +41,7 @@ router.post('/api/health-assistant', async (req, res) => {
       }
     );
     const data = await response.json();
+    console.log('Gemini API response:', data); // Debug log
     if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
       data.candidates[0].content.parts[0].text =
         convertToBulletPoints(data.candidates[0].content.parts[0].text);

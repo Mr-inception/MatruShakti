@@ -17,8 +17,12 @@ app.use(healthAssistantRoutes);
 const mediclockerRoutes = require('./mediclocker');
 app.use(mediclockerRoutes);
 
-// Connect to MongoDB Atlas (replace <connection_string> with your URI)
-mongoose.connect('mongodb+srv://P1:06HF0x2SS0sibpQr@matru.iyx8vnc.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true });
+// Use the URL from the environment variable
+const mongoUrl = process.env.MONGO_URL;
+
+mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected!'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 const postSchema = new mongoose.Schema({
   category: String,
