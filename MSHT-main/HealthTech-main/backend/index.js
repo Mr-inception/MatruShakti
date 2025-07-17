@@ -92,7 +92,11 @@ app.post('/login', async (req, res) => {
   if (!isMatch) {
     return res.status(401).json({ message: 'Invalid email or password' });
   }
-  const token = jwt.sign({ userId: user._id, email: user.email }, 'your_jwt_secret_key', { expiresIn: '7d' });
+  const token = jwt.sign(
+    { userId: user._id, email: user.email },
+    process.env.JWT_SECRET_KEY,
+    { expiresIn: '7d' }
+  );
   res.json({ token, user: { email: user.email, fullName: user.fullName, userType: user.userType, profileDescription: user.profileDescription } });
 });
 
