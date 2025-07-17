@@ -5,10 +5,16 @@ import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar, Heart, Baby, BriefcaseMedical, MessageSquare, CircleCheck } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const BACKEND_URL = 'http://localhost:4000';
 
 const Dashboard = () => {
+  const [user, setUser] = useState<{ fullName?: string; email?: string } | null>(null);
+  useEffect(() => {
+    const stored = localStorage.getItem('matruUser');
+    if (stored) setUser(JSON.parse(stored));
+  }, []);
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -17,7 +23,9 @@ const Dashboard = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <div>
-              <h1 className="text-2xl font-bold">Pregnancy Dashboard</h1>
+              <h1 className="text-2xl font-bold">
+                {user?.fullName ? `${user.fullName}'s Pregnancy Dashboard` : 'Pregnancy Dashboard'}
+              </h1>
               <p className="text-gray-600">Track your journey and access resources</p>
             </div>
             <div className="mt-4 md:mt-0">
