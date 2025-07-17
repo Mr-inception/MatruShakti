@@ -6,7 +6,12 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+const FRONTEND_URL = process.env.FRONTEND_URL || 'https://matru-shaktii.vercel.app';
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true
+}));
+app.options('*', cors());
 app.use(express.json());
 
 // Register health assistant routes
