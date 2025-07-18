@@ -1,21 +1,40 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+
+// CORS configuration for production
+const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:3000'];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
+
 app.use(express.json());
 
 // Register health assistant routes
 const healthAssistantRoutes = require('./healthAssistant');
-app.use(healthAssistantRoutes);
+app.use('/api', healthAssistantRoutes);
 
 // Register MedicLocker routes
 const mediclockerRoutes = require('./mediclocker');
-app.use(mediclockerRoutes);
+app.use('/api', mediclockerRoutes);
+
+// Register Documents routes if the file exists
+const documentsRoutes = require('./Documents');
+app.use('/api', documentsRoutes);
 
 // Use the URL from the environment variable
 const mongoUrl = process.env.MONGO_URL;

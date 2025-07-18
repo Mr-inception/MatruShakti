@@ -64,7 +64,7 @@ const upload = multer({
 });
 
 // Get all documents for a user
-router.get('/api/documents/:userId', async (req, res) => {
+router.get('/documents/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
     const documents = await Document.find({ userId }).sort({ createdAt: -1 });
@@ -76,7 +76,7 @@ router.get('/api/documents/:userId', async (req, res) => {
 });
 
 // Upload a new document
-router.post('/api/documents/upload', upload.single('document'), async (req, res) => {
+router.post('/documents/upload', upload.single('document'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
@@ -106,7 +106,7 @@ router.post('/api/documents/upload', upload.single('document'), async (req, res)
 });
 
 // Update document status
-router.put('/api/documents/:id/status', async (req, res) => {
+router.put('/documents/:id/status', async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -129,7 +129,7 @@ router.put('/api/documents/:id/status', async (req, res) => {
 });
 
 // Delete a document
-router.delete('/api/documents/:id', async (req, res) => {
+router.delete('/documents/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const document = await Document.findById(id);
@@ -155,7 +155,7 @@ router.delete('/api/documents/:id', async (req, res) => {
 });
 
 // Download a document
-router.get('/api/documents/:id/download', async (req, res) => {
+router.get('/documents/:id/download', async (req, res) => {
   try {
     const { id } = req.params;
     const document = await Document.findById(id);
@@ -182,7 +182,7 @@ router.get('/api/documents/:id/download', async (req, res) => {
 });
 
 // Get document statistics
-router.get('/api/documents/:userId/stats', async (req, res) => {
+router.get('/documents/:userId/stats', async (req, res) => {
   try {
     const { userId } = req.params;
     const documents = await Document.find({ userId });
@@ -206,7 +206,7 @@ router.get('/api/documents/:userId/stats', async (req, res) => {
 });
 
 // Search documents
-router.get('/api/documents/:userId/search', async (req, res) => {
+router.get('/documents/:userId/search', async (req, res) => {
   try {
     const { userId } = req.params;
     const { q, type, status } = req.query;

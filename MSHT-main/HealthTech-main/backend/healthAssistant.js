@@ -12,8 +12,8 @@ function convertToBulletPoints(text) {
     .join('\n');
 }
 
-router.post('/api/health-assistant', async (req, res) => {
-  console.log('Received request at /api/health-assistant');
+router.post('/health-assistant', async (req, res) => {
+  console.log('Received request at /health-assistant');
   try {
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,

@@ -67,7 +67,7 @@ let documents = [
 ];
 
 // Test endpoint to verify API is working
-router.get('/api/mediclocker/test', (req, res) => {
+router.get('/mediclocker/test', (req, res) => {
   console.log('Test endpoint called');
   console.log('Documents array:', documents);
   res.json({ 
@@ -79,7 +79,7 @@ router.get('/api/mediclocker/test', (req, res) => {
 });
 
 // Get all documents for a user
-router.get('/api/mediclocker/:userId', (req, res) => {
+router.get('/mediclocker/:userId', (req, res) => {
   try {
     const { userId } = req.params;
     console.log('Fetching documents for userId:', userId);
@@ -136,7 +136,7 @@ router.get('/api/mediclocker/:userId', (req, res) => {
 });
 
 // Upload a new document
-router.post('/api/mediclocker/upload', upload.single('document'), (req, res) => {
+router.post('/mediclocker/upload', upload.single('document'), (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
@@ -168,7 +168,7 @@ router.post('/api/mediclocker/upload', upload.single('document'), (req, res) => 
 });
 
 // Update document status
-router.put('/api/mediclocker/:id/status', (req, res) => {
+router.put('/mediclocker/:id/status', (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
@@ -187,7 +187,7 @@ router.put('/api/mediclocker/:id/status', (req, res) => {
 });
 
 // Delete a document
-router.delete('/api/mediclocker/:id', (req, res) => {
+router.delete('/mediclocker/:id', (req, res) => {
   try {
     const { id } = req.params;
     const documentIndex = documents.findIndex(doc => doc.id === id);
@@ -215,7 +215,7 @@ router.delete('/api/mediclocker/:id', (req, res) => {
 });
 
 // Download a document
-router.get('/api/mediclocker/:id/download', (req, res) => {
+router.get('/mediclocker/:id/download', (req, res) => {
   try {
     const { id } = req.params;
     console.log('Download request for document ID:', id);
@@ -260,7 +260,7 @@ router.get('/api/mediclocker/:id/download', (req, res) => {
 });
 
 // Get document statistics
-router.get('/api/mediclocker/:userId/stats', (req, res) => {
+router.get('/mediclocker/:userId/stats', (req, res) => {
   try {
     const { userId } = req.params;
     console.log('Fetching stats for userId:', userId);
