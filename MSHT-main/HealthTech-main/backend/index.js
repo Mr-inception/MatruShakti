@@ -120,5 +120,11 @@ app.post('/login', async (req, res) => {
   res.json({ token, user: { email: user.email, fullName: user.fullName, userType: user.userType, profileDescription: user.profileDescription } });
 });
 
-const PORT = 4000;
-app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+// Export the Express app for serverless (e.g., Vercel) environments.
+module.exports = app;
+
+// Only start the server when this file is executed directly (local development)
+if (require.main === module) {
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+}
