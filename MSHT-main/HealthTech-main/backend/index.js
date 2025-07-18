@@ -6,22 +6,7 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const app = express();
-
-// CORS configuration for production
-const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:3000'];
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-};
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Enable pre-flight for all routes
-
+app.use(cors());
 app.use(express.json());
 
 // Register health assistant routes
