@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const app = express();
+
 // CORS configuration
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'https://matru-shaktii.vercel.app',
@@ -22,20 +23,51 @@ app.use(cors({
   },
   credentials: true,
 }));
+
 app.options('*', cors()); // Enable pre-flight for all routes
 app.use(express.json());
 
-// Register health assistant routes
-const healthAssistantRoutes = require('./healthAssistant');
-app.use('/api', healthAssistantRoutes);
+// Debug logging
+console.log('Current working directory:', process.cwd());
+console.log('__dirname:', __dirname);
 
-// Register MedicLocker routes
-const mediclockerRoutes = require('./mediclocker');
-app.use('/api', mediclockerRoutes);
+try {
+  const fs = require('fs');
+  const files = fs.readdirSync(__dirname);
+  console.log('Files in current directory:', files);
+} catch (err) {
+  console.log('Error reading directory:', err);
+}
 
-// Register Documents routes if the file exists
-const documentsRoutes = require('./Documents');
-app.use('/api', documentsRoutes);
+// Register health assistant routes with error handling
+try {
+  console.log('Attempting to require ./healthAssistant');
+  const healthAssistantRoutes = require('./healthAssistant');
+  app.use('/api', healthAssistantRoutes);
+  console.log('Successfully required healthAssistant');
+} catch (error) {
+  console.error('Error requiring healthAssistant:', error);
+}
+
+// Register MedicLocker routes with error handling
+try {
+  console.log('Attempting to require ./mediclocker');
+  const mediclockerRoutes = require('./mediclocker');
+  app.use('/api', mediclockerRoutes);
+  console.log('Successfully required mediclocker');
+} catch (error) {
+  console.error('Error requiring mediclocker:', error);
+}
+
+// Register Documents routes with error handling
+try {
+  console.log('Attempting to require ./Documents');
+  const documentsRoutes = require('./Documents');
+  app.use('/api', documentsRoutes);
+  console.log('Successfully required Documents');
+} catch (error) {
+  console.error('Error requiring Documents:', error);
+}
 
 // Use the URL from the environment variable
 const mongoUrl = process.env.MONGO_URL;
@@ -79,15 +111,25 @@ const User = mongoose.model('User', userSchema);
 
 // Get all posts
 app.get('/posts', async (req, res) => {
-  const posts = await Post.find().sort({ _id: -1 });
-  res.json(posts);
+  try {
+    const posts = await Post.find().sort({ _id: -1 });
+    res.json(posts);
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    res.status(500).json({ message: 'Error fetching posts' });
+  }
 });
 
 // Add a new post
 app.post('/posts', async (req, res) => {
-  const post = new Post(req.body);
-  await post.save();
-  res.json(post);
+  try {
+    const post = new Post(req.body);
+    await post.save();
+    res.json(post);
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).json({ message: 'Error creating post' });
+  }
 });
 
 app.post('/register', async (req, res) => {
@@ -103,21 +145,34 @@ app.post('/register', async (req, res) => {
 
 // Login endpoint
 app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(401).json({ message: 'Invalid email or password' });
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: '7d' }
+    );
+    res.json({ 
+      token, 
+      user: { 
+        email: user.email, 
+        fullName: user.fullName, 
+        userType: user.userType, 
+        profileDescription: user.profileDescription 
+      } 
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).json({ message: 'Login failed' });
   }
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(401).json({ message: 'Invalid email or password' });
-  }
-  const token = jwt.sign(
-    { userId: user._id, email: user.email },
-    process.env.JWT_SECRET_KEY,
-    { expiresIn: '7d' }
-  );
-  res.json({ token, user: { email: user.email, fullName: user.fullName, userType: user.userType, profileDescription: user.profileDescription } });
 });
 
 // Export the Express app for serverless (e.g., Vercel) environments.
