@@ -50,6 +50,7 @@ const registerSchema = z.object({
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 const BACKEND_URL = import.meta.env.VITE_API_URL;
+const API_BASE = BACKEND_URL || 'http://localhost:4001';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ const Register = () => {
     setIsSubmitting(true);
     try {
       // Send registration data to backend
-      const res = await fetch(`${BACKEND_URL}/register`, {
+      const res = await fetch(`${API_BASE}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

@@ -26,3 +26,18 @@ dist-ssr
 # Environment files
 .env
 .env.*
+
+# dependencies
+node_modules/
+
+# environment variables
+.env
+
+# build output
+dist/
+build/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
