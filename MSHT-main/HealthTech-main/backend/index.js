@@ -10,7 +10,8 @@ const app = express();
 // CORS configuration
 const allowedOrigins = [
   process.env.FRONTEND_URL || 'https://matru-shaktii.vercel.app',
-  'http://localhost:3000'
+  'http://localhost:3000',
+  'http://localhost:8080'
 ].filter(Boolean);
 
 app.use(cors({
@@ -72,7 +73,7 @@ try {
 // Use the URL from the environment variable
 const mongoUrl = process.env.MONGO_URL;
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoUrl)
   .then(() => console.log('MongoDB connected!'))
   .catch(err => console.error('MongoDB connection error:', err));
 
@@ -180,6 +181,6 @@ module.exports = app;
 
 // Only start the server when this file is executed directly (local development)
 if (require.main === module) {
-  const PORT = process.env.PORT || 4000;
+  const PORT = process.env.PORT || 4001;
   app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
 }
